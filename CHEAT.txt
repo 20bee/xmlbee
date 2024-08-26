@@ -1,0 +1,249 @@
+*******rest hello*****
+package com.example.demo2;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class LectureController {
+	@GetMapping("/welcome")
+	public String getUniInfo() {
+		return "seusl pakada blnne";
+	}
+	
+	
+}
+
+
+**********rest simple bill calculator ******
+
+public class CalcuuClass {
+	public int cal(int cal) {
+		int amount = 0;
+		
+		if(cal <=30) {
+			amount = cal*10;
+		}
+		else if(cal<=60) {
+			amount = ((cal - 30) * 20) + 300;
+		}
+		else if(cal<=90) {
+			amount = ((cal-60)*30)+900;
+		}
+		else if(cal>90) {
+			amount = ((cal-90)*40)+1800;
+		}
+		
+		return amount;
+		
+	}
+
+}
+
+************* simple additon multiplication devition subs CALCULATOR*********
+
+public class BasicCalculator {
+    // Method for addition
+    public int add(int a, int b) {
+        return a + b;
+    }
+    // Method for subtraction
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+    // Method for multiplication
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+    // Method for division
+    public int divide(int a, int b) {
+        return a / b;
+    }
+}
+
+
+
+************* ajex data pass edit and remove*********
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Emp ID </th>
+            <th>Name</th>
+            <th>Facolty </th>
+            <th>Department </th>
+            <th>Designation </th>
+            <th>Research Area</th>
+            <th>Experience </th>
+        </tr>
+
+        <tr>
+            <td id="data1"> </td>
+            <td id="data2"> </td>
+            <td id="data3"> </td>
+            <td id="data4"> </td>
+            <td id="data5"> </td>
+            <td id="data6"> </td>
+            <td id="data7"> </td>
+        </tr>
+
+        <tr>
+            <td id="data8"> </td>
+            <td id="data9"> </td>
+            <td id="data10"> </td>
+            <td id="data11"> </td>
+            <td id="data12"> </td>
+            <td id="data13"> </td>
+            <td id="data14"> </td>
+        </tr>
+
+        <tr>
+            <td id="data15"> </td>
+            <td id="data16"> </td>
+            <td id="data17"> </td>
+            <td id="data18"> </td>
+            <td id="data19"> </td>
+            <td id="data20"> </td>
+            <td id="data21"> </td>
+        </tr>
+    </table>
+
+    <script>
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET","Q1.xml",true);
+        xhttp.send();
+        xhttp.onreadystatechange = function(){
+            if(xhttp.readyState == 4 && xhttp.status == 200){
+
+                var xmlDoc = xhttp.responseXML;
+
+                document.getElementById("data1").innerHTML=xmlDoc.getElementsByTagName("employ_id")[0].childNodes[0].nodeValue;
+                document.getElementById("data2").innerHTML=xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                document.getElementById("data3").innerHTML=xmlDoc.getElementsByTagName("facolty")[0].childNodes[0].nodeValue;
+                document.getElementById("data4").innerHTML=xmlDoc.getElementsByTagName("facolty")[0].attributes[0].nodeValue;
+                document.getElementById("data5").innerHTML=xmlDoc.getElementsByTagName("designation")[0].childNodes[0].nodeValue;
+                document.getElementById("data6").innerHTML=xmlDoc.getElementsByTagName("Employees")[0].attributes[0].nodeValue;
+                document.getElementById("data7").innerHTML=xmlDoc.getElementsByTagName("experience")[0].childNodes[0].nodeValue + "," + xmlDoc.getElementsByTagName("experience")[0].childNodes[0].nodeValue;
+                document.getElementById("data18").innerHTML=xmlDoc.getElementsByTagName("facolty")[2].attributes[0].nodeValue;
+                document.getElementById("data19").innerHTML=xmlDoc.getElementsByTagName("designation")[2].childNodes[0].nodeValue;
+
+
+                var x = xmlDoc.getElementsByTagName("facolty")[2].attributes[0];
+                x.nodeValue = "Advanced Mathematics";
+                document.getElementById("data18").innerHTML = x.nodeValue;
+
+
+                var y = xmlDoc.getElementsByTagName("designation")[2].childNodes[0];
+                y.nodeValue = "Senior Lecture";
+                document.getElementById("data19").innerHTML = y.nodeValue;
+
+
+                var z = xmlDoc.getElementsByTagName("facolty")[2].childNodes[0];
+                z.nodeValue = "fuck science";
+                document.getElementById("data17").innerHTML = z.nodeValue + y.nodeValue;
+
+                
+                var a = xmlDoc.getElementsByTagName("name")[0];
+                var del = a.childNodes[0];
+                document.getElementById("data2").innerHTML = a.removeChild(del);
+
+
+            }
+        };
+
+    </script>
+</body>
+</html>
+
+
+************* JSON **********
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="data1"></p>
+    <p id="data2"></p>
+    <p id="data3"></p>
+    <script>
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET","json.json",true);
+        xhttp.send();
+        xhttp.onreadystatechange = function(){
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+
+            var Myobject = JSON.parse(xhttp.responseText);
+
+            document.getElementById("data1").innerHTML= Myobject.Seusl.Employee[1].name;
+            document.getElementById("data2").innerHTML= Myobject.Seusl.Employee[0].faculty;
+            document.getElementById("data3").innerHTML= Myobject.Seusl.Employee[1].id;
+
+            var x = Myobject.Seusl.Employee[1].id = "10000000";
+            document.getElementById("data3").innerHTML= x;
+
+            var y = delete Myobject.Seusl.Employee[0].faculty;
+            document.getElementById("data2").innerHTML= y;
+        }
+    };
+    </script>
+</body>
+</html>
+
+*********** simpe JSON FILE**********
+{
+    "Seusl" : {
+        "Employee" : [
+            {
+                "id" : 1001,
+                "name" : "Kariapper",
+                "faculty" : "Technology",
+                "designation" : "Lecturer",
+                "experience" : 15
+
+            },
+            {
+                "id" : 1001,
+                "name" : "Kariapper",
+                "faculty" : "Technology",
+                "designation" : "Lecturer",
+                "experience" : 15
+            },
+            {
+                "id" : 1001,
+                "name" : "Kariapper",
+                "faculty" : "Technology",
+                "designation" : "Lecturer",
+                "experience" : 15
+            }
+        ]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
